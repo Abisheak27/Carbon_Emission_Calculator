@@ -18,7 +18,7 @@ export default function DoughnutChart({ height, color = [] }) {
 
     series: [
       {
-        name: "Traffic Rate",
+        name: "Overall Emission",
         type: "pie",
         hoverOffset: 5,
         radius: ["45%", "72.55%"],
@@ -50,9 +50,9 @@ export default function DoughnutChart({ height, color = [] }) {
           }
         },
         data: [
-          { value: 65, name: "Google" },
-          { value: 20, name: "Facebook" },
-          { value: 15, name: "Others" }
+          { value: 65, name: "Excavation"},
+          { value: 20, name: "Transportation"},
+          { value: 15, name: "Equipment"}
         ]
       }
     ]

@@ -40,9 +40,9 @@ export const EchartTheme = (MuiTheme) => ({
     {
       type: "line",
       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-        { offset: 0, color: "#83bff6" },
-        { offset: 0.5, color: "#188df0" },
-        { offset: 1, color: "#188df0" }
+        { offset: 0, color: "#B2FF66" },
+        { offset: 0.5, color: "#FFFF66" },
+        { offset: 1, color: "#FF6666" }
       ])
     }
   ]

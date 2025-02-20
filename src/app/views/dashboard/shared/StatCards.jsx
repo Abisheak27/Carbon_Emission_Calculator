@@ -1,13 +1,12 @@
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import Store from "@mui/icons-material/Store";
 import Group from "@mui/icons-material/Group";
 import AttachMoney from "@mui/icons-material/AttachMoney";
-import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
 import { Small } from "app/components/Typography";
 
@@ -27,36 +26,60 @@ const ContentBox = styled(Box)(({ theme }) => ({
   flexWrap: "wrap",
   alignItems: "center",
   "& small": { color: theme.palette.text.secondary },
-  "& .icon": { opacity: 0.6, fontSize: "44px", color: theme.palette.primary.main }
+  "& .icon": { opacity: 0.6, fontSize: "50px", color: theme.palette.primary.main }
 }));
 
 const Heading = styled("h6")(({ theme }) => ({
   margin: 0,
   marginTop: "4px",
-  fontSize: "14px",
+  fontSize: "18px",
   fontWeight: "500",
   color: theme.palette.primary.main
 }));
 
+// Function to determine color based on gas level
+const getCircleColor = (name, value) => {
+  if (name === "CO2 Level") {
+    return value > 200 ? "red" : value > 100 ? "yellow" : "green";
+  }
+  if (name === "CH4 Level") {
+    return value > 2.0 ? "red" : value > 1.5 ? "yellow" : "green";
+  }
+  if (name === "NOX Level") {
+    return value > 1.0 ? "red" : value > 0.5 ? "yellow" : "green";
+  }
+  return "gray"; // Default color
+};
+
 export default function StatCards() {
   const cardList = [
-    { name: "New Leads", amount: 3050, Icon: Group },
-    { name: "This week Sales", amount: "$80,500", Icon: AttachMoney },
-    { name: "Inventory Status", amount: "8.5% Stock Surplus", Icon: Store },
-    { name: "Orders to deliver", amount: "305 Orders", Icon: ShoppingCart }
+    { name: "CO2 Level", amount: 180, unit: "PPM", Icon: Group },
+    { name: "CH4 Level", amount: 1.8, unit: "%", Icon: AttachMoney },
+    { name: "NOX Level", amount: 0.8, unit: "%", Icon: Store }
   ];
 
   return (
     <Grid container spacing={3} sx={{ mb: "24px" }}>
-      {cardList.map(({ amount, Icon, name }) => (
-        <Grid size={{ md: 6, xs: 12 }} key={name}>
+      {cardList.map(({ amount, unit, Icon, name }) => (
+        <Grid item md={6} xs={12} key={name}>
           <StyledCard elevation={6}>
             <ContentBox>
               <Icon className="icon" />
 
-              <Box ml="12px">
+              <Box ml="15 px">
                 <Small>{name}</Small>
-                <Heading>{amount}</Heading>
+                <Heading>
+                  {amount} {unit}
+                </Heading>
+                <Box
+                  sx={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: "50%",
+                    backgroundColor: getCircleColor(name, amount),
+                    marginTop: "8px"
+                  }}
+                />
               </Box>
             </ContentBox>
 

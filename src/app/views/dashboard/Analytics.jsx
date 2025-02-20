@@ -3,13 +3,12 @@ import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid2";
 import { styled, useTheme } from "@mui/material/styles";
 
-import RowCards from "./shared/RowCards";
+
 import StatCards from "./shared/StatCards";
-import Campaigns from "./shared/Campaigns";
 import StatCards2 from "./shared/StatCards2";
 import DoughnutChart from "./shared/Doughnut";
-import UpgradeCard from "./shared/UpgradeCard";
-import TopSellingTable from "./shared/TopSellingTable";
+import LineChart from "./shared/LineChart";
+import ComparisonChart from "./shared/ComparisonChart";
 
 // STYLED COMPONENTS
 const ContentBox = styled("div")(({ theme }) => ({
@@ -43,29 +42,32 @@ export default function Analytics() {
   return (
     <Fragment>
       <ContentBox className="analytics">
-        <Grid container spacing={3}>
-          <Grid size={{ md: 8, xs: 12 }}>
-            <StatCards />
-            <TopSellingTable />
-            <StatCards2 />
-
-            <H4>Ongoing Projects</H4>
-            <RowCards />
+        <Grid container spacing={6} justifyContent="center">
+        <Grid size={{ md: 8, xs: 17 }}>
+          <StatCards />
+        <Grid container spacing={51}>
+          <Grid size={{ md: 6, xs: 12 }}>
+            <Card sx={{ px: 3, py: 3, mb: 5, height: "350px", width:"575px" }}>
+                <LineChart height="100%" width="100%" />               {" "}
+            </Card>  
           </Grid>
-
-          <Grid size={{ md: 4, xs: 12 }}>
-            <Card sx={{ px: 3, py: 2, mb: 3 }}>
-              <Title>Traffic Sources</Title>
-              <SubTitle>Last 30 days</SubTitle>
-
-              <DoughnutChart
-                height="300px"
+        <Grid size={{ md: 6, xs: 12 }}>
+          <Card sx={{ px: 4, py: 3, mb: 5, height: "350px",width:"600px" }}>
+            <ComparisonChart height="100%" width="100%" />               {" "}
+          </Card>
+        </Grid>
+        </Grid>
+        <StatCards2 />
+        </Grid>
+        <Grid size={{ md: 4, xs: 12 }}>
+        <Card sx={{ px: 2, py: 1, mb: 3 }}>
+         <Title>Overall Carbon Emission</Title>             {" "}
+         <SubTitle>Last 30 days</SubTitle>
+         <DoughnutChart
+                height="240px"
                 color={[palette.primary.dark, palette.primary.main, palette.primary.light]}
               />
-            </Card>
-
-            <UpgradeCard />
-            <Campaigns />
+         </Card>
           </Grid>
         </Grid>
       </ContentBox>

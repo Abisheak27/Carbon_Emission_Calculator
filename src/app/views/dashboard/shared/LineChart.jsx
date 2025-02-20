@@ -5,7 +5,7 @@ export default function LineChart({ height, color = [] }) {
   const theme = useTheme();
 
   const option = {
-    grid: { top: "10%", bottom: "10%", left: "5%", right: "5%" },
+    grid: { top: "15%", bottom: "15%", left: "8%", right: "8%" },
     legend: {
       itemGap: 20,
       icon: "circle",
@@ -38,7 +38,11 @@ export default function LineChart({ height, color = [] }) {
       splitLine: {
         lineStyle: { color: theme.palette.text.secondary, opacity: 0.15 }
       },
-      axisLabel: { color: theme.palette.text.secondary, fontSize: 13, fontFamily: "roboto" }
+      axisLabel: {
+        color: theme.palette.text.secondary,
+        fontSize: 13,
+        fontFamily: "roboto"
+      }
     },
     series: [
       {
@@ -62,5 +66,10 @@ export default function LineChart({ height, color = [] }) {
     ]
   };
 
-  return <ReactEcharts style={{ height: height }} option={{ ...option, color: [...color] }} />;
+  return (
+    <ReactEcharts
+      style={{ height: height || "400px" }}
+      option={{ ...option, color: color.length ? [...color] : ["#ff0000", "#0000ff"] }}
+    />
+  );
 }

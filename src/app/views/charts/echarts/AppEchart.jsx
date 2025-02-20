@@ -4,9 +4,9 @@ import Breadcrumb from "app/components/Breadcrumb";
 import SimpleCard from "app/components/SimpleCard";
 
 import AreaChart from "./AreaChart";
-import LineChart from "./LineChart";
+import LineChart from "../../dashboard/shared/LineChart";
 import DoughnutChart from "./Doughnut";
-import ComparisonChart from "./ComparisonChart";
+import ComparisonChart from "../../dashboard/shared/ComparisonChart";
 
 // STYLED COMPONENT
 const Container = styled("div")(({ theme }) => ({
