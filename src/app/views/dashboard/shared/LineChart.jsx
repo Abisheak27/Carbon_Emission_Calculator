@@ -1,8 +1,37 @@
 import { useTheme } from "@mui/material/styles";
+import React, { useState, useEffect } from "react";
 import ReactEcharts from "echarts-for-react";
 
 export default function LineChart({ height, color = [] }) {
   const theme = useTheme();
+  const [chartData, setChartData] = useState({
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], // Initial labels
+    series1: [30, 40, 20, 50, 40, 80, 90],
+    series2: [20, 50, 15, 50, 30, 70, 95]
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setChartData((prevData) => {
+        const newLabel = new Date().toLocaleTimeString(); // New X-Axis Label (Time)
+        const newSeries1Value = Math.floor(Math.random() * 100);
+        const newSeries2Value = Math.floor(Math.random() * 100);
+
+        // Update Data, Keeping Only Last 10 Points
+        const updatedLabels = [...prevData.labels, newLabel].slice(-10);
+        const updatedSeries1 = [...prevData.series1, newSeries1Value].slice(-10);
+        const updatedSeries2 = [...prevData.series2, newSeries2Value].slice(-10);
+
+        return {
+          labels: updatedLabels,
+          series1: updatedSeries1,
+          series2: updatedSeries2
+        };
+      });
+    }, 1000); // Update every second
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
 
   const option = {
     grid: { top: "15%", bottom: "15%", left: "8%", right: "8%" },
@@ -15,14 +44,9 @@ export default function LineChart({ height, color = [] }) {
         fontFamily: theme.typography.fontFamily
       }
     },
-    label: {
-      fontSize: 13,
-      color: theme.palette.text.secondary,
-      fontFamily: theme.typography.fontFamily
-    },
     xAxis: {
       type: "category",
-      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      data: chartData.labels, // Dynamic X-axis Labels
       axisLine: { show: false },
       axisTick: { show: false },
       axisLabel: {
@@ -46,19 +70,19 @@ export default function LineChart({ height, color = [] }) {
     },
     series: [
       {
-        data: [30, 40, 20, 50, 40, 80, 90],
+        data: chartData.series1, // Live Data for "This Month"
         type: "line",
-        stack: "This month",
-        name: "This month",
+        stack: "Carbon",
+        name: "Carbon",
         smooth: true,
         symbolSize: 4,
         lineStyle: { width: 4 }
       },
       {
-        data: [20, 50, 15, 50, 30, 70, 95],
+        data: chartData.series2, // Live Data for "Last Month"
         type: "line",
-        stack: "Last month",
-        name: "Last month",
+        stack: "Nitrogen",
+        name: "Nitrogen",
         smooth: true,
         symbolSize: 4,
         lineStyle: { width: 4 }
